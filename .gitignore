@@ -1,2 +1,6 @@
 /myenv
 /Backend/__pycache__/
+/.env
+/alebic.ini
+/alebic/__pycache__/
+
