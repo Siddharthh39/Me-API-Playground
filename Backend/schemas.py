@@ -1,29 +1,63 @@
-from pydantic import BaseModel, EmailStr
 from typing import Optional, List
 
-class Project(BaseModel):
-    id: int
-    name: str
-    links: Optional[List[str]] = []
+from pydantic import BaseModel, EmailStr, ConfigDict
 
-class Workexp(BaseModel):
+
+class SkillOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     name: str
-    role : str
+
+
+class ProjectOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    title: str
+    description: Optional[str] = None
+    links: Optional[str] = None
+
+
+class WorkExperienceOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    company: str
+    role: str
+    duration: Optional[str] = None
     description: Optional[str] = None
 
-class Links (BaseModel):
+
+class LinksOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
     github: Optional[str] = None
     linkedin: Optional[str] = None
-    Leetcode: Optional[str] = None
-    codeforces: Optional[str] = None
+    portfolio: Optional[str] = None
 
-class Profile(BaseModel):
-    name : str
-    email : EmailStr
-    education : str
-    skills : List[str] = []
-    Projects : List[Project] = []
-    work : List[Workexp] = []
-    links : Optional[Links] = None
+
+class ProfileBase(BaseModel):
+    name: str
+    email: EmailStr
+    education: str
+
+
+class ProfileCreate(ProfileBase):
+    pass
+
+
+class ProfileUpdate(ProfileBase):
+    pass
+
+
+class ProfileOut(ProfileBase):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    skills: List[SkillOut] = []
+    projects: List[ProjectOut] = []
+    work: List[WorkExperienceOut] = []
+    links: Optional[LinksOut] = None
 

@@ -17,6 +17,10 @@ Health Check
 def health_check():
     return {"status": "ok"}
 
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app)
+
 """
 ----------------------------------------
 Profile CRUD
@@ -24,8 +28,8 @@ Profile CRUD
 """
 
 # Create Profile
-@app.post("/profile", response_model=schemas.Profile)
-def create_profile(profile: schemas.Profile, db: Session = Depends(get_db)):
+@app.post("/profile", response_model=schemas.ProfileOut)
+def create_profile(profile: schemas.ProfileCreate, db: Session = Depends(get_db)):
     existing = db.query(models.Profile).first()
     if existing:
         raise HTTPException(
@@ -46,17 +50,19 @@ def create_profile(profile: schemas.Profile, db: Session = Depends(get_db)):
 
 
 # Get Profile
-@app.get("/profile", response_model=schemas.Profile)
+@app.get("/profile", response_model=schemas.ProfileOut)
 def get_profile(db: Session = Depends(get_db)):
+    print("hello")
     profile = db.query(models.Profile).first()
+    print(profile)
     if not profile:
         raise HTTPException(status_code=404, detail="Profile not found")
     return profile
 
 
 # Update Profile
-@app.put("/profile", response_model=schemas.Profile)
-def update_profile(profile: schemas.Profile, db: Session = Depends(get_db)):
+@app.put("/profile", response_model=schemas.ProfileOut)
+def update_profile(profile: schemas.ProfileUpdate, db: Session = Depends(get_db)):
     db_profile = db.query(models.Profile).first()
     if not db_profile:
         raise HTTPException(status_code=404, detail="Profile not found")
