@@ -2,3 +2,4 @@ myenv
 Backend/__pycache__/
 alembic.ini
 alembic/__pycache__/
+versions/__pycache__/
