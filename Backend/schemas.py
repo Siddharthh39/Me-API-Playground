@@ -26,4 +26,4 @@ class Profile(BaseModel):
     Projects : List[Project] = []
     work : List[Workexp] = []
     links : Optional[Links] = None
-    
+
