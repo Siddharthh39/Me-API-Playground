@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap CDN -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+</head>
+<body class="bg-light">
+
+<div class="container py-4">
+  <h1 class="mb-4">My Portfolio</h1>
+
+  <!-- Profile -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title">Profile</h5>
+      <p id="profile"></p>
+    </div>
+  </div>
+
+  <!-- Search -->
+  <div class="mb-3">
+    <input id="searchInput" class="form-control" placeholder="Search by skill..." />
+    <button class="btn btn-primary mt-2" onclick="search()">Search</button>
+  </div>
+
+  <!-- Projects -->
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Projects</h5>
+      <ul id="projects" class="list-group"></ul>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
