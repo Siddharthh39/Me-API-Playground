@@ -18,10 +18,22 @@ Health Check
 def health_check():
     return {"status": "ok"}
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app)
+'''
+----------------------------------------
+use this for local testing
+----------------------------------------
+'''
 
+# if __name__ == "__main__":
+#     import uvicorn
+#     uvicorn.run(app)
+'''
+----------------------------------------
+for serverless deployment
+----------------------------------------
+'''
+from mangum import Mangum
+handler = Mangum(app)
 
 app.add_middleware(
     CORSMiddleware,

@@ -4,3 +4,4 @@ alembic.ini
 alembic/__pycache__/
 .env
 Frontend/assests/
+lambda_package
