@@ -1,41 +1,45 @@
 from typing import Optional, List
 
-from pydantic import BaseModel, EmailStr, ConfigDict
+from pydantic import BaseModel, EmailStr
 
 
 class SkillOut(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
     id: int
     name: str
 
+    class Config:
+        orm_mode = True
+
 
 class ProjectOut(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
     id: int
     title: str
     description: Optional[str] = None
     links: Optional[str] = None
 
+    class Config:
+        orm_mode = True
+
 
 class WorkExperienceOut(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
     id: int
     company: str
     role: str
     duration: Optional[str] = None
     description: Optional[str] = None
 
+    class Config:
+        orm_mode = True
+
 
 class LinksOut(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
     id: int
     github: Optional[str] = None
     linkedin: Optional[str] = None
     portfolio: Optional[str] = None
+
+    class Config:
+        orm_mode = True
 
 
 class ProfileBase(BaseModel):
@@ -53,11 +57,12 @@ class ProfileUpdate(ProfileBase):
 
 
 class ProfileOut(ProfileBase):
-    model_config = ConfigDict(from_attributes=True)
-
     id: int
     skills: List[SkillOut] = []
     projects: List[ProjectOut] = []
     work: List[WorkExperienceOut] = []
     links: Optional[LinksOut] = None
+
+    class Config:
+        orm_mode = True
 
