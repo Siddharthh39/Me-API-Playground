@@ -3,5 +3,5 @@ Backend/__pycache__/
 alembic.ini
 alembic/__pycache__/
 .env
-Frontend/assests/
-lambda_package
+Frontend/assets/
+lamda_fn_pkg

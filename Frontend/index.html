@@ -2,43 +2,125 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>My Portfolio</title>
+  <title>Profile Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Bootstrap CDN -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body { background: linear-gradient(120deg, #0d1b2a 0%, #1b263b 60%, #e0e1dd 100%); min-height: 100vh; }
+    .glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.08); }
+    .card { border: none; }
+    .hero { color: #e0e1dd; }
+    .pill { border: 1px solid rgba(255,255,255,0.2); color: #e0e1dd; }
+    .chart-container { position: relative; height: 260px; }
+  </style>
 </head>
-<body class="bg-light">
-
+<body>
 <div class="container py-4">
-  <h1 class="mb-4">My Portfolio</h1>
 
-  <!-- Profile -->
-  <div class="card mb-4">
-    <div class="card-body">
-      <h5 class="card-title">Profile</h5>
-      <p id="profile"></p>
+  <!-- Hero / selector -->
+  <div class="p-4 rounded-4 glass mb-4">
+    <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 hero">
+      <div>
+        <div class="text-uppercase fw-semibold small">Profile explorer</div>
+        <h1 class="fw-bold mb-1">Load a profile</h1>
+        <p class="mb-0 opacity-75">Type a name or leave blank to view the first profile in the database.</p>
+      </div>
+      <div class="w-100 w-md-auto" style="max-width: 360px;">
+        <div class="input-group">
+          <input id="profileNameInput" class="form-control" placeholder="e.g. string" />
+          <button class="btn btn-warning" onclick="loadProfile()">Load</button>
+        </div>
+        <div class="form-text text-light" id="status"></div>
+      </div>
     </div>
   </div>
 
-  <!-- Search -->
-  <div class="mb-3">
-    <input id="searchInput" class="form-control" placeholder="Search by skill..." />
-    <button class="btn btn-primary mt-2" onclick="search()">Search</button>
-  </div>
-
-  <!-- Projects -->
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">Projects</h5>
-      <ul id="projects" class="list-group"></ul>
+  <!-- Summary + links row -->
+  <div class="row g-4 mb-4">
+    <div class="col-lg-8">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <h5 class="card-title mb-0">Profile</h5>
+            <span class="badge bg-warning text-dark" id="profileTag">Active</span>
+          </div>
+          <h3 class="fw-bold" id="profileName">—</h3>
+          <p class="mb-1 text-muted" id="profileEmail"></p>
+          <p class="mb-0" id="profileEducation"></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h6 class="text-uppercase text-muted">Links</h6>
+          <ul id="links" class="list-group list-group-flush"></ul>
+        </div>
+      </div>
     </div>
   </div>
+
+  <!-- Skills + chart row -->
+  <div class="row g-4 mb-4">
+    <div class="col-lg-5">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="card-title mb-0">Skills</h5>
+            <span class="badge bg-secondary" id="skillCount">0</span>
+          </div>
+          <div id="skills" class="d-flex flex-wrap gap-2"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-7">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="card-title mb-0">Skill distribution</h5>
+            <small class="text-muted">Relative weight</small>
+          </div>
+          <div class="chart-container">
+            <canvas id="skillChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Projects and Work -->
+  <div class="row g-4 mb-4">
+    <div class="col-lg-7">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="card-title mb-0">Projects</h5>
+            <div class="d-flex gap-2">
+              <input id="searchInput" class="form-control form-control-sm" placeholder="Filter by skill" />
+              <button class="btn btn-outline-primary btn-sm" onclick="search()">Filter</button>
+            </div>
+          </div>
+          <div id="projects" class="row gy-3"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="card-title mb-0">Work experience</h5>
+            <small class="text-muted">Timeline</small>
+          </div>
+          <div id="work" class="timeline"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
