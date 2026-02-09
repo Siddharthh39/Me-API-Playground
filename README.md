@@ -12,21 +12,16 @@ A minimal portfolio/API stack deployed on AWS, with a static frontend and a serv
 ## Architecture
 ```mermaid
 flowchart LR
-    A[Browser
-    Static SPA] -->|HTTPS| CF[CloudFront
-    CDN]
-    CF -->|Origin: S3 Website Endpoint
-    (public bucket)| S3[(S3 Static Website)]
-    A -->|HTTPS /api/*| APIGW[API Gateway
-    HTTP API]
-    APIGW -->|Lambda Proxy| LBD[Lambda (FastAPI+Mangum)]
-    LBD -->|SQL| RDS[(PostgreSQL / RDS)]
-    subgraph DNS
-        R53[Route 53
-        Hosted Zone]
-    end
-    R53 -.->|A/AAAA aliases| CF
-    R53 -.->|A/AAAA aliases| APIGW
+   A[Browser\nStatic SPA] -->|HTTPS| CF[CloudFront\nCDN]
+   CF -->|Origin: S3 website endpoint| S3[(S3 static site)]
+   A -->|HTTPS /api/*| APIGW[API Gateway\nHTTP API]
+   APIGW -->|Lambda proxy| LBD[Lambda\nFastAPI+Mangum]
+   LBD -->|SQL| RDS[(PostgreSQL / RDS)]
+   subgraph DNS
+      R53[Route 53\nHosted Zone]
+   end
+   R53 -.->|Alias| CF
+   R53 -.->|Alias| APIGW
 ```
 
 ### Notes
